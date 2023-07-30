@@ -1,7 +1,8 @@
 class Human:
-    def __init__(self, name, surname):
+    def __init__(self, name, surname, gender):
         self.name = name
         self.surname = surname
+        self.gender = gender
         self.grades = {}
     def average_grade(self, grades):
         sum_grades = 0
@@ -14,8 +15,8 @@ class Human:
         return average_grade
 
 class Student(Human):
-    def __init__(self, name, surname):
-        super().__init__(name, surname)
+    def __init__(self, name, surname, gender):
+        super().__init__(name, surname, gender)
         self.finished_courses = []
         self.courses_in_progress = []
 
@@ -26,6 +27,7 @@ class Student(Human):
         self_finished_courses = ', '.join(self.finished_courses)
         printvalue = (f'Студент\nИмя: {self.name}\n'
                     f'Фамилия: {self.surname}\n'
+                    f'Пол: {self.gender}\n'
                     f'Средняя оценка за домание задания: {average_grade}\n'
                     f'Курсы в процессе изучения: {self_courses_in_progress}\n'
                     f'Завершенные курсы: {self_finished_courses}')
@@ -89,11 +91,11 @@ class Reviewer(Mentor):
             return 'Ошибка'
 
 #Создаем экземпляры классов
-best_student1 = Student('Anton', 'Lutskov')
+best_student1 = Student('Anton', 'Lutskov', 'male')
 best_student1.finished_courses += ['Git', 'Введение в программирование']
 best_student1.courses_in_progress += ['Python', 'Data Science']
 
-best_student2 = Student('Vasya', 'Pupkin')
+best_student2 = Student('Vasya', 'Pupkin', 'male')
 best_student2.finished_courses += ['Git', 'Введение в программирование']
 best_student2.courses_in_progress += ['Python', 'Data Science']
 
@@ -108,7 +110,6 @@ cool_lecturer2.courses_attached += ['Python', 'Data Science']
 
 cool_lecturer3 = Lecturer('Elena', 'Nikitina')
 cool_lecturer3.courses_attached += ['Python', 'Data Science']
-
 
 #Используем методы классов
 cool_reviewer.rate_hw(best_student1, 'Python', 9)
@@ -174,7 +175,7 @@ print()
 student_list = [best_student1, best_student2]
 lecturer_list = [cool_lecturer1, cool_lecturer2, cool_lecturer3]
 
-def average_grade_course(student_list, course):
+def average_grade_course_hm(student_list, course):
     sum_grades = 0
     len_grades = 0
     for list in student_list:
@@ -194,8 +195,8 @@ def average_grade_lecturer(lecturer_list, course):
     average_grade = round(sum_grades / len_grades, 2)
     return average_grade
 
-print('Средняя оценка по курсу Data Science: ', average_grade_course(student_list, 'Data Science'))
-print('Средняя оценка по курсу Python: ', average_grade_course(student_list, 'Python'))
+print('Средняя оценка по курсу Data Science: ', average_grade_course_hm(student_list, 'Data Science'))
+print('Средняя оценка по курсу Python: ', average_grade_course_hm(student_list, 'Python'))
 
 print('Средняя оценка по лектору Python: ', average_grade_lecturer(lecturer_list, 'Python'))
 print('Средняя оценка по лектору Data Science: ', average_grade_lecturer(lecturer_list, 'Data Science'))
